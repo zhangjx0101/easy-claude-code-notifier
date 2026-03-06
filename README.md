@@ -41,6 +41,31 @@ $n.Dispose()
 
 所以脚本执行无报错，但用户什么都看不到。
 
+### 第二个坑：中文编码导致通知时有时无
+
+即使替换为 Toast 通知后，仍可能出现**通知时有时无**的现象。根本原因：
+
+**Windows PowerShell 5.1 默认用系统编码（GBK/GB2312）读取 stdin，而 Claude Code 通过 stdin 传入的 JSON 是 UTF-8 编码的。** 当 `last_assistant_message` 字段包含中文时，编码不匹配导致 `ConvertFrom-Json` 解析失败，脚本在 `catch { exit 0 }` 处静默退出——不发通知也不报错。
+
+表现：
+- Claude 用英文回复时 → 通知正常
+- Claude 用中文回复时 → 通知丢失
+- 混合使用时 → 时有时无
+
+**修复方案**：用 .NET 的 `StreamReader` 强制 UTF-8 读取 stdin，并且 JSON 解析失败时不退出而是继续发默认通知：
+
+```powershell
+# 替换原来的 $raw = [Console]::In.ReadToEnd()
+$reader = New-Object System.IO.StreamReader([Console]::OpenStandardInput(), [System.Text.Encoding]::UTF8)
+$raw = $reader.ReadToEnd()
+$data = $null
+try { $data = $raw | ConvertFrom-Json } catch {
+    # JSON 解析失败时不退出，继续发默认通知
+}
+```
+
+同时，后续所有引用 `$data` 的地方需要加 `if ($data)` 保护。
+
 ## 解决方案：改用 Windows 10 Toast 通知
 
 ### 核心修改
@@ -311,6 +336,7 @@ echo '{"tool_name": "Bash"}' | powershell -NoProfile -NonInteractive -ExecutionP
 | 脚本执行无报错但没弹窗 | 还在用 NotifyIcon 而非 Toast | 检查脚本是否已替换为 Toast 代码 |
 | Toast 代码正确但没弹窗 | AppUserModelID 错误 | 使用 PowerShell 的已注册 ID |
 | Permission 有弹窗但 Stop 没有 | stdin 被读取了两次 | 确保脚本中只有一次 `ReadToEnd()` |
+| **通知时有时无** | **stdin 中文编码问题（GBK vs UTF-8）** | **用 `StreamReader` + UTF-8 读取 stdin，解析失败不退出** |
 | Windows 通知被屏蔽 | 系统设置问题 | 设置 → 通知 → 确保 PowerShell 通知已开启 |
 
 ## 附：工具白名单配置
