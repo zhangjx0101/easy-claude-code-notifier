@@ -1,4 +1,4 @@
-<h1 align="center">Easy Claude Code Notifier</h1>
+<h1 align="center">🔔 Easy Claude Code Notifier</h1>
 
 <p align="center">
   <img src="assets/logo.svg" alt="Easy Claude Code Notifier" width="400">
