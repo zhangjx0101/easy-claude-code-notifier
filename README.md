@@ -1,7 +1,7 @@
 <h1 align="center">🔔 Easy Claude Code Notifier</h1>
 
 <p align="center">
-  <img src="assets/logo.svg" alt="Easy Claude Code Notifier" width="400">
+  <img src="assets/easy-claude-code-notifier(1).png" alt="Easy Claude Code Notifier" width="500">
 </p>
 
 <p align="center">

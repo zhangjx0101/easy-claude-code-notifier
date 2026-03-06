@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
-  <rect width="400" height="200" rx="20" fill="#1a1a2e"/>
-  <text x="200" y="95" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="52">&#x1F514;</text>
-  <text x="200" y="140" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600" fill="#4fc3f7">Easy Claude Code Notifier</text>
-  <text x="200" y="170" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#888">placeholder - replace with your logo</text>
-</svg>
