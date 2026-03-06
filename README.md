@@ -1,8 +1,15 @@
-# Claude Code Windows Toast 通知 — 完整实现
+# Easy Claude Code Notifier
 
-在 Windows 10/11 上为 Claude Code（VSCode 扩展 / CLI）添加系统 Toast 弹窗通知。当 Claude 完成任务、需要授权或提问时，右下角弹出 Windows 原生通知。
+为 Claude Code（VSCode 扩展 / CLI）添加系统弹窗通知。当 Claude 完成任务、需要授权或提问时，弹出原生系统通知。
 
-**无需安装任何第三方插件**，仅依赖 Claude Code 内置的 Hooks 机制 + PowerShell 脚本。
+**无需安装任何第三方插件**，仅依赖 Claude Code 内置的 Hooks 机制 + 平台原生脚本。
+
+## 平台支持
+
+| 平台 | 状态 |
+|---|---|
+| Windows 10/11 | 已实现（Toast 通知） |
+| macOS | 计划中 |
 
 ---
 
@@ -618,6 +625,12 @@ $toast.Group = "claude-notifier"
 **TODO**：
 - [ ] 关注 Claude Code 更新，检查 PreToolUse hook 是否修复
 - [ ] 修复后对 `on-question.ps1` 和 `on-permission.ps1` 应用同样的 UTF-8 stdin 修复
+
+### macOS 支持
+
+- [ ] 实现 macOS 版本通知脚本（使用 `osascript` / `terminal-notifier`）
+- [ ] 编写 macOS 安装指南
+- [ ] 测试 macOS 上三种 hook 的触发行为
 
 ---
 
