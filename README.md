@@ -412,6 +412,29 @@ echo '{"tool_name": "Bash"}' | powershell -NoProfile -NonInteractive -ExecutionP
 - 不在两个列表中的工具会触发 Permission 通知，等待用户授权
 - 使用通配符 `*` 匹配命令前缀（如 `Bash(git status*)` 匹配所有以 `git status` 开头的命令）
 
+## TODO：未解决的问题
+
+### PreToolUse (AskUserQuestion) 通知不稳定
+
+**现状**：`PreToolUse` hook 用于在 Claude 提问时通知用户，但在 VSCode 扩展环境中行为不稳定。
+
+**已尝试**：
+1. 在全局 `~/.claude/settings.json` 中配置 PreToolUse hook（matcher: `AskUserQuestion`）→ VSCode 中不被调用
+2. 在项目级 `.claude/settings.local.json` 中配置 → 曾触发过一次，后续不再触发
+3. 脚本本身（`claude-notifier-on-question.ps1`）已完成 Toast 通知改造，手动测试正常
+
+**可能原因**：
+- VSCode 扩展的 hook 加载机制存在 bug（日志中曾出现 "Found 0 hook matchers"）
+- PreToolUse hook 在 VSCode 扩展中可能未完全实现
+
+**当前替代方案**：
+- Stop hook 在 Claude 提问并等待回答时也会触发，显示 "Claude has finished the task."
+- 虽然消息不够精确（显示"完成"而非"提问"），但功能上可以替代
+
+**待跟进**：
+- [ ] 关注 Claude Code VSCode 扩展更新，检查 PreToolUse hook 是否修复
+- [ ] 如果官方修复，需要对 `claude-notifier-on-question.ps1` 应用同样的 UTF-8 stdin 修复
+
 ## 总结
 
 Claude Notifier 插件在 macOS 上开箱即用，但在 Windows 上需要手动将通知方式从 `NotifyIcon.ShowBalloonTip` 改为 `ToastNotificationManager`。修改后 Stop（任务完成）和 Permission（需要授权）两种通知可以稳定工作，足以覆盖日常使用场景。
