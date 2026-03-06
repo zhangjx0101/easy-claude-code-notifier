@@ -1,15 +1,37 @@
-# Easy Claude Code Notifier
+<h1 align="center">Easy Claude Code Notifier</h1>
 
-为 Claude Code（VSCode 扩展 / CLI）添加系统弹窗通知。当 Claude 完成任务、需要授权或提问时，弹出原生系统通知。
+<p align="center">
+  <img src="assets/logo.svg" alt="Easy Claude Code Notifier" width="400">
+</p>
 
-**无需安装任何第三方插件**，仅依赖 Claude Code 内置的 Hooks 机制 + 平台原生脚本。
+<p align="center">
+  <strong>Native OS notifications for Claude Code — never miss a response again.</strong>
+</p>
+
+<p align="center">
+  <a href="#快速安装"><img src="https://img.shields.io/badge/claude--code-hooks-blue?style=flat-square&logo=anthropic" alt="Claude Code"></a>
+  <a href="#文件-2claude-notifier-on-stopps1"><img src="https://img.shields.io/badge/windows-toast%20通知-0078D6?style=flat-square&logo=windows" alt="Windows"></a>
+  <a href="#已知问题"><img src="https://img.shields.io/badge/macOS-计划中-999?style=flat-square&logo=apple" alt="macOS"></a>
+  <a href="#"><img src="https://img.shields.io/badge/plugin-不需要-brightgreen?style=flat-square" alt="No Plugin"></a>
+  <a href="https://github.com/zhangjx0101/easy-claude-code-notifier/stargazers"><img src="https://img.shields.io/github/stars/zhangjx0101/easy-claude-code-notifier?style=flat-square" alt="Stars"></a>
+</p>
+
+<p align="center">
+  <a href="#功能概览">功能概览</a> •
+  <a href="#快速安装">快速安装</a> •
+  <a href="#完整文件清单">文件清单</a> •
+  <a href="#技术细节">技术细节</a> •
+  <a href="#问题排查">问题排查</a>
+</p>
+
+---
 
 ## 平台支持
 
-| 平台 | 状态 |
-|---|---|
-| Windows 10/11 | 已实现（Toast 通知） |
-| macOS | 计划中 |
+| 平台 | 状态 | 通知方式 |
+|---|---|---|
+| Windows 10/11 | 已实现 | Toast 通知 (ToastNotificationManager) |
+| macOS | 计划中 | osascript / terminal-notifier |
 
 ---
 
