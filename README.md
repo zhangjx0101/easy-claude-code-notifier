@@ -26,6 +26,18 @@
 
 ---
 
+## 为什么要自己做
+
+现有的 Claude Code 通知方案（VSCode 插件、第三方工具）在 **中文 Windows** 环境下普遍存在问题：
+
+1. **`NotifyIcon.ShowBalloonTip` 在非交互式 PowerShell 中静默失败** — 多数插件使用的通知方式，在 Claude Code hook 环境下根本弹不出来
+2. **中文编码导致通知时有时无** — Windows PowerShell 5.1 默认用 GBK 读取 stdin，而 Claude Code 传入的 JSON 是 UTF-8，包含中文时 JSON 解析失败，通知丢失
+3. **AppUserModelID 的隐藏陷阱** — 自定义 ID 会导致 Toast 静默失败，必须使用 PowerShell 已注册的系统 ID
+
+本项目解决了以上所有问题，提供**开箱即用**的 Windows Toast 通知脚本。
+
+> 适用于 **Claude Code VSCode 扩展**（主要）和 **Claude Code CLI**，通过 Claude Code 内置的 [Hooks](https://docs.anthropic.com/en/docs/claude-code/hooks) 机制实现。
+
 ## 平台支持
 
 | 平台 | 状态 | 通知方式 |
