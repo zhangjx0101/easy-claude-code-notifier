@@ -313,6 +313,79 @@ echo '{"tool_name": "Bash"}' | powershell -NoProfile -NonInteractive -ExecutionP
 | Permission 有弹窗但 Stop 没有 | stdin 被读取了两次 | 确保脚本中只有一次 `ReadToEnd()` |
 | Windows 通知被屏蔽 | 系统设置问题 | 设置 → 通知 → 确保 PowerShell 通知已开启 |
 
+## 附：工具白名单配置
+
+在 `~/.claude/settings.json` 的 `permissions` 部分，可以配置自动允许和禁止的工具，避免频繁弹出授权对话框：
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "Bash(ls*)",
+      "Bash(pwd*)",
+      "Bash(cat*)",
+      "Bash(head*)",
+      "Bash(tail*)",
+      "Bash(wc*)",
+      "Bash(echo*)",
+      "Bash(which*)",
+      "Bash(find*)",
+      "Bash(grep*)",
+      "Bash(cd*)",
+      "Bash(mkdir*)",
+      "Bash(cp*)",
+      "Bash(mv*)",
+      "Bash(touch*)",
+      "Bash(diff*)",
+      "Bash(sort*)",
+      "Bash(uniq*)",
+      "Bash(sed*)",
+      "Bash(awk*)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git show*)",
+      "Bash(git branch*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git stash*)",
+      "Bash(git tag*)",
+      "Bash(git config*)",
+      "Bash(git init*)",
+      "Bash(git remote*)",
+      "Bash(gh auth*)",
+      "Bash(gh api*)",
+      "Bash(python*)",
+      "Bash(python3*)",
+      "Bash(pip*)",
+      "Bash(pdflatex*)",
+      "Bash(powershell*)"
+    ],
+    "deny": [
+      "Bash(rm -rf*)",
+      "Bash(rm -r*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean*)"
+    ]
+  }
+}
+```
+
+**说明**：
+- `allow` 中的工具会自动执行，不弹授权框
+- `deny` 中的工具会被直接拒绝
+- 不在两个列表中的工具会触发 Permission 通知，等待用户授权
+- 使用通配符 `*` 匹配命令前缀（如 `Bash(git status*)` 匹配所有以 `git status` 开头的命令）
+
 ## 总结
 
 Claude Notifier 插件在 macOS 上开箱即用，但在 Windows 上需要手动将通知方式从 `NotifyIcon.ShowBalloonTip` 改为 `ToastNotificationManager`。修改后 Stop（任务完成）和 Permission（需要授权）两种通知可以稳定工作，足以覆盖日常使用场景。
