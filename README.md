@@ -669,6 +669,16 @@ $toast.Group = "claude-notifier"
 
 ---
 
+## 相关项目
+
+| 项目 | 简介 | 平台 |
+|---|---|---|
+| [ashmitb95/claude-notifier](https://github.com/ashmitb95/claude-notifier) | VSCode 扩展，任务完成或需要输入时播放不同声音 | VSCode |
+| [yike-gunshi/claude-code-notifier](https://github.com/yike-gunshi/claude-code-notifier) | macOS 桌面通知 + AI 会话摘要 | macOS |
+| [soulee-dev/claude-code-notify-powershell](https://github.com/soulee-dev/claude-code-notify-powershell) | PowerShell Toast 通知，零依赖 | Windows |
+| [777genius/claude-notifications-go](https://github.com/777genius/claude-notifications-go) | Go 实现的跨平台通知，6 种事件类型，支持 Webhook | Windows / macOS / Linux |
+| [mylee04/code-notify](https://github.com/mylee04/code-notify) | 跨平台桌面通知，支持 Claude Code / Codex / Gemini | Windows / macOS / Linux |
+
 ## 致谢
 
 基于 [Claude Notifier](https://marketplace.visualstudio.com/items?itemName=SingularityInc.claude-notifier) 插件的 hook 设计思路，重写为独立的 Windows Toast 通知实现。
